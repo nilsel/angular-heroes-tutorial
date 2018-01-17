@@ -14,6 +14,10 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 19, name: 'Magma' },
       { id: 20, name: 'Tornado' }
     ];
-    return {heroes};
+    const texts = {
+      'app.title': 'This is a faux FMS text',
+      'app.version': '0.0.1'
+    };
+    return {heroes, texts};
   }
 }
