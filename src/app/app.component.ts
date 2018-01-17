@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.fmsService.getFms().subscribe(
-      res => { this.loading = false; console.log(res);},
+      res => { this.loading = false; },
       err => { this.loading = true; }
     );
   }

@@ -7,15 +7,20 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Fms } from './fms';
 import { MessageService } from './message.service';
 
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'ClientId': 'q2i-testing'})
+};
+
 @Injectable()
 export class FmsService {
 
-  private fmsUrl = 'api/texts';
+
+  private fmsUrl = '/api/open/texts/obcTxt?version=pending';
 
   private log(message: string) {
     this.messageService.add('FmsService: ' + message);
   }
-
   /**
   * Handle Http operation that failed.
   * Let the app continue.
@@ -53,7 +58,7 @@ export class FmsService {
 
   getFms(): Observable<Fms[]> {
     const url = `${this.fmsUrl}`;
-    return this.http.get<Fms[]>(url).pipe(
+    return this.http.get<Fms[]>(url, httpOptions).pipe(
       tap(_ => this.log(`fetched fms texts`)),
       catchError(this.handleError<Fms[]>(`getTexts`))
     );

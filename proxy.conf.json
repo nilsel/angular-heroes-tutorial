@@ -1,0 +1,18 @@
+{
+  "/api/heroes": {
+    "target": "http://localhost:8000",
+    "pathRewrite": {
+      "^/api/heroes": "/heroes-mock.json"
+    }
+  },
+  "mongoDB/api/heroes": {
+    "target": "http://localhost:3000",
+    "logLevel": "debug"
+  },
+  "/api/open/texts": {
+    "target": "https://www2-u.storebrand.no",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
