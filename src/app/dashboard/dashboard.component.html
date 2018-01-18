@@ -8,3 +8,7 @@
 </div>
 
 <app-hero-search></app-hero-search>
+
+<ul>
+  <li *ngFor="let txt of fmsService.getAll()">{{txt}}</li>
+</ul>

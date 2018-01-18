@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, mergeAll } from 'rxjs/operators';
 
 import { Fms } from './fms';
 import { MessageService } from './message.service';
@@ -12,10 +12,11 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'ClientId': 'q2i-testing'})
 };
 
+
 @Injectable()
 export class FmsService {
 
-
+  public fmsTexts = [];
   private fmsUrl = '/api/open/texts/obcTxt?version=pending';
 
   private log(message: string) {
@@ -48,15 +49,21 @@ export class FmsService {
     private messageService: MessageService,
   ) { }
 
-  getTexts (): Observable<Fms[]> {
-    return this.http.get<Fms[]>(this.fmsUrl)
-    .pipe(
-      tap(Fms => this.log(`fetched texts`) ),
-      catchError(this.handleError('getTexts', []))
-    );
+  getToken(token: string) {
+    return this.fmsTexts[token];
   }
 
-  getFms(): Observable<Fms[]> {
+  getAll() {
+    if(this.fmsTexts){
+      return Object.entries(this.fmsTexts).slice(0,4);
+    }
+    else {
+      console.log('nope');
+      return [];
+    }
+  }
+
+  loadTexts(): Observable<Fms[]> {
     const url = `${this.fmsUrl}`;
     return this.http.get<Fms[]>(url, httpOptions).pipe(
       tap(_ => this.log(`fetched fms texts`)),

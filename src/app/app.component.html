@@ -1,3 +1,6 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '0' }"></ngx-loading>
+
+
 <h1>{{title}} - {{loading}}</h1>
 <nav>
   <a routerLink="/dashboard">Dashboard</a>
@@ -7,5 +10,3 @@
 <router-outlet></router-outlet>
 
 <app-messages></app-messages>
-
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '0' }"></ngx-loading>

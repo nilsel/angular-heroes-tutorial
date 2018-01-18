@@ -15,9 +15,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.fmsService.getFms().subscribe(
-      res => { this.loading = false; },
-      err => { this.loading = true; }
+    // load FMS onInit and push the texts back into fmsService
+    this.fmsService.loadTexts().subscribe(
+      res => {
+        this.loading = false;
+        this.fmsService.fmsTexts = res;
+        console.log('texts: ', this.fmsService.fmsTexts);
+      },
+      err => { this.loading = true; console.error('could not load FMS texts'); },
+      () => { console.log('fms observable stream completed'); }
     );
   }
 
